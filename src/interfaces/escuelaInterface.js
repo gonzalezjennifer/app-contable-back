@@ -6,6 +6,8 @@ class EscuelaInterface {
   getAdminByUsername(usuario) {}
   createMaestro(data) {}
   getMaestroById(id) {}
+  createGasto(data) {}
+  getGastoById(id) {}
 }
 
 export default EscuelaInterface

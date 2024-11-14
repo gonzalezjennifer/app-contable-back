@@ -83,6 +83,27 @@ class EscuelaService {
     return await escuelaRepository.getMaestroById(id)
   }
 
+  async createGasto (data) {
+    const newGasto = new EscuelaModel.GastosModel(
+      null,
+      data.nombre,
+      data.tipo,
+      data.cantidad,
+      data.estado,
+      data.correo,
+      data.numero,
+      data.fechalimite
+    )
+
+    const gastoId = await escuelaRepository.createGasto(newGasto)
+
+    return gastoId
+  }
+
+  async getGastoById(id) {
+    return await escuelaRepository.getGastoById(id)
+  }
+
 }
 
 export default EscuelaService

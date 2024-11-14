@@ -50,8 +50,22 @@ class MaestroModel {
   }
 }
 
+class GastosModel {
+  constructor(id, nombre, tipo, cantidad, estado, correo, numero, fechalimite){
+    this.id = id,
+    this.nombre = nombre,
+    this.tipo = tipo,
+    this.cantidad = cantidad,
+    this.estado = estado,
+    this.correo = correo,
+    this.numero = numero,
+    this.fechalimite = fechalimite
+  }
+}
+
 export default {
   AdminModel,
   EstudianteModel,
-  MaestroModel
+  MaestroModel,
+  GastosModel
 }
