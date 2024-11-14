@@ -12,7 +12,7 @@ class AdminModel {
   }
 }
 
-class EstudianteModel {
+class AlumnoModel {
   constructor(id, nombre, genero, clase, nacimiento, gruposangre, religion, fechaadmicion, nombretutor, generotutor, correotutor, telefonotutor, ocupaciontutor, direcciontutor, religiontutor, cantidadpago, statuspago) {
     this.id = id,
     this.nombre = nombre,
@@ -75,7 +75,7 @@ class AsignaturasModel {
 
 export default {
   AdminModel,
-  EstudianteModel,
+  AlumnoModel,
   MaestroModel,
   GastosModel,
   AsignaturasModel

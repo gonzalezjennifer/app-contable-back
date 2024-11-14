@@ -43,20 +43,55 @@ class EscuelaService {
     await escuelaRepository.updateAdmin(id, data)
   }
 
-  async deleteAdmin(id) {
-    const existAdmin = await escuelaRepository.getAdminById(id)
-    if (!existAdmin) {
-      throw new Error('Admin no encontrado')
-    }
-    await escuelaRepository.deleteAdmin(id)
-  }
-
   async getAdminById(id) {
     return await escuelaRepository.getAdminById(id)
   }
 
   async getAdminByUsername(usuario) {
     return await escuelaRepository.getAdminByUsername(usuario)
+  }
+
+  async createAlumno (data) {
+    const newAlumno = new EscuelaModel.AlumnoModel(
+      null,
+      data.nombre,
+      data.genero,
+      data.clase,
+      data.nacimiento,
+      data.gruposangre,
+      data.religion,
+      data.fechaadmicion,
+      data.nombretutor,
+      data.generotutor,
+      data.correotutor,
+      data.telefonotutor,
+      data.ocupaciontutor,
+      data.direcciontutor,
+      data.religiontutor,
+      data.cantidadpago,
+      data.statuspago
+    )
+
+    const alumnoId = await escuelaRepository.createAlumno(newAlumno)
+
+    return alumnoId
+  }
+
+  async updateAlumno(id, data){
+    const existAlumno = await escuelaRepository.getAlumnoById(id)
+    if (!existAlumno) {
+      throw new Error('Alumno no encontrado')
+    }
+
+    await escuelaRepository.updateAlumno(id, data)
+  }
+
+  async getAllAlumnos() {
+    return await escuelaRepository.getAllAlumnos()
+  }
+
+  async getAlumnoById(id) {
+    return await escuelaRepository.getAlumnoById(id)
   }
 
   async createMaestro (data) {
