@@ -189,6 +189,28 @@ class EscuelaRepository {
     )
   }
 
+  async getAllMaestros() {
+    const docs = await db.collection('maestros').get()
+    const maestros = []
+    docs.forEach((doc) => {
+      const data = doc.data()
+      maestros.push(new escuelaModel.MaestroModel(
+        doc.id,
+        data.nombre,
+        data.genero,
+        data.clase,
+        data.asignatura,
+        data.direccion,
+        data.fechanacimiento,
+        data.telefono,
+        data.religion,
+        data.correo,
+        data.gruposangre
+      ))
+    })
+    return maestros
+  }
+
   async createGasto(data) {
     const gasto = await db.collection('gastos').add({
       nombre: data.nombre,
@@ -223,6 +245,25 @@ class EscuelaRepository {
     )
   }
 
+  async getAllGastos() {
+    const docs = await db.collection('gastos').get()
+    const gastos = []
+    docs.forEach((doc) => {
+      const data = doc.data()
+      gastos.push(new escuelaModel.GastosModel(
+        doc.id,
+        data.nombre,
+        data.tipo,
+        data.cantidad,
+        data.estado,
+        data.correo,
+        data.numero,
+        data.fechalimite
+      ))
+    })
+    return gastos
+  }
+
   async createAsignatura(data) {
     const asignatura = await db.collection('asignaturas').add({
       nombre: data.nombre,
@@ -249,6 +290,22 @@ class EscuelaRepository {
       data.clases,
       data.dias
     )
+  }
+
+  async getAllAsignaturas() {
+    const docs = await db.collection('asignaturas').get()
+    const asignaturas = []
+    docs.forEach((doc) => {
+      const data = doc.data()
+      asignaturas.push(new escuelaModel.AsignaturasModel(
+        doc.id,
+        data.nombre,
+        data.maestro,
+        data.clases,
+        data.dias
+      ))
+    })
+    return asignaturas
   }
 
 }

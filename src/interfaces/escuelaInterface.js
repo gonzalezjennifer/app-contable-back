@@ -6,10 +6,13 @@ class EscuelaInterface {
   getAdminByUsername(usuario) {}
   createMaestro(data) {}
   getMaestroById(id) {}
+  getAllMaestros() {}
   createGasto(data) {}
   getGastoById(id) {}
+  getAllGastos() {}
   createAsignatura(data) {}
   getAsignaturaById(id) {}
+  getAllAsignaturas() {}
 }
 
 export default EscuelaInterface

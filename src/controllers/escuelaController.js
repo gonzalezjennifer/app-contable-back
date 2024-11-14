@@ -180,6 +180,21 @@ const getMaestroById = async (req, res) => {
   }
 }
 
+const getAllMaestros = async (req, res) => {
+  try {
+    const maestros = await escuelaService.getAllMaestros()
+    res.status(201).json({
+      success: true,
+      maestros
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
 const createGasto = async (req, res) => {
   try {
     const gastoId = await escuelaService.createGasto(req.body)
@@ -208,6 +223,21 @@ const getGastoById = async (req, res) => {
     res.status(201).json({
       success: true,
       gasto
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
+const getAllGastos = async (req, res) => {
+  try {
+    const gastos = await escuelaService.getAllGastos()
+    res.status(201).json({
+      success: true,
+      gastos
     })
   } catch (error) {
     res.status(400).json({
@@ -254,6 +284,21 @@ const getAsignaturaById = async (req, res) => {
   }
 }
 
+const getAllAsignaturas = async (req, res) => {
+  try {
+    const asignaturas = await escuelaService.getAllAsignaturas()
+    res.status(201).json({
+      success: true,
+      asignaturas
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
 export {
   createAdmin,
   updateAdmin,
@@ -265,8 +310,11 @@ export {
   getAlumnoById,
   createMaestro,
   getMaestroById,
+  getAllMaestros,
   createGasto,
   getGastoById,
+  getAllGastos,
   createAsignatura,
-  getAsignaturaById
+  getAsignaturaById,
+  getAllAsignaturas
 }

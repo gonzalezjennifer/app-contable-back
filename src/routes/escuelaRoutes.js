@@ -12,10 +12,13 @@ import {
   getAlumnoById,
   createMaestro,
   getMaestroById,
+  getAllMaestros,
   createGasto,
   getGastoById,
+  getAllGastos,
   createAsignatura,
-  getAsignaturaById
+  getAsignaturaById,
+  getAllAsignaturas
 } from '../controllers/escuelaController.js'
 
 const router = express.Router()
@@ -41,6 +44,7 @@ router.get('/alumno/:id', authMiddleware, getAlumnoById)
 
 router.post('/create/maestro', createMaestro)
 router.get('/maestro/:id', authMiddleware, getMaestroById)
+router.get('/getall/maestros', authMiddleware, getAllMaestros)
 
 router.post(
   '/create/gasto',
@@ -51,6 +55,7 @@ router.post(
   createGasto
 )
 router.get('/gasto/:id', authMiddleware, getGastoById)
+router.get('/getall/gastos', authMiddleware, getAllGastos)
 
 router.post(
   '/create/asignatura',
@@ -59,7 +64,9 @@ router.post(
     check('nombre').notEmpty().withMessage('El nombre de la asignatura es obligatorio'),
     check('maestro').notEmpty().withMessage('El nombre del maestro es obligatorio')
   ],
-  createGasto
+  createAsignatura
 )
+router.get('/asignatura/:id', authMiddleware, getAsignaturaById)
+router.get('/getall/asignaturas', authMiddleware, getAllAsignaturas)
 
 export default router

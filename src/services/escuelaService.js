@@ -118,6 +118,10 @@ class EscuelaService {
     return await escuelaRepository.getMaestroById(id)
   }
 
+  async getAllMaestros() {
+    return await escuelaRepository.getAllMaestros()
+  }
+
   async createGasto (data) {
     const newGasto = new EscuelaModel.GastosModel(
       null,
@@ -139,6 +143,10 @@ class EscuelaService {
     return await escuelaRepository.getGastoById(id)
   }
 
+  async getAllGastos() {
+    return await escuelaRepository.getAllGastos()
+  }
+
   async createAsignatura (data) {
     const newAsignatura = new EscuelaModel.AsignaturasModel(
       null,
@@ -155,6 +163,10 @@ class EscuelaService {
 
   async getAsignaturaById(id) {
     return await escuelaRepository.getAsignaturaById(id)
+  }
+
+  async getAllAsignaturas() {
+    return await escuelaRepository.getAllAsignaturas()
   }
 
 }
