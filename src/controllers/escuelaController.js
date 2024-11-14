@@ -91,10 +91,49 @@ const getAdminByUsername = async (req, res) => {
   }
 }
 
+const createMaestro = async (req, res) => {
+  try {
+    const maestroId = await escuelaService.createMaestro(req.body)
+    res.status(201).json({
+      success: true,
+      maestroId
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
+const getMaestroById = async (req, res) => {
+  try {
+    const id = req.params.id
+    const maestro = await escuelaService.getMaestroById(id)
+    if (!maestro) {
+      res.status(404).json({
+        success: false,
+        message: 'Maestro no encontrado'
+      })
+    }
+    res.status(201).json({
+      success: true,
+      maestro
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
 export {
   createAdmin,
   updateAdmin,
   deleteAdmin,
   getAdminById,
-  getAdminByUsername
+  getAdminByUsername,
+  createMaestro,
+  getMaestroById
 }

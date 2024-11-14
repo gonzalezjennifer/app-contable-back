@@ -67,6 +67,47 @@ class EscuelaRepository {
       data.idioma
     )
   }
+
+  async createMaestro(data) {
+    const maestro = await db.collection('maestros').add({
+      nombre: data.nombre,
+      genero: data.genero,
+      clase: data.clase,
+      asignatura: data.asignatura,
+      direccion: data.direccion,
+      fechanacimiento: data.fechanacimiento,
+      telefono: data.telefono,
+      religion: data.religion,
+      correo: data.correo,
+      gruposangre: data.gruposangre
+    })
+
+    return maestro.id
+  }
+  
+  async getMaestroById(id) {
+    const doc = await db.collection('maestros').doc(id).get()
+
+    if(!doc.exists) {
+      return null
+    }
+
+    const data = doc.data()
+    return new escuelaModel.MaestroModel(
+      doc.id,
+      data.nombre,
+      data.genero,
+      data.clase,
+      data.asignatura,
+      data.direccion,
+      data.fechanacimiento,
+      data.telefono,
+      data.religion,
+      data.correo,
+      data.gruposangre
+    )
+  }
+
 }
 
 export default EscuelaRepository

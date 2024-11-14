@@ -6,7 +6,9 @@ import {
   updateAdmin,
   deleteAdmin,
   getAdminById,
-  getAdminByUsername
+  getAdminByUsername,
+  createMaestro,
+  getMaestroById
 } from '../controllers/escuelaController.js'
 
 const router = express.Router()
@@ -24,5 +26,8 @@ router.put('/update/admin/:id', authMiddleware, updateAdmin)
 router.delete('/delete/admin/:id', authMiddleware, deleteAdmin)
 router.get('/admin/:id', authMiddleware, getAdminById)
 router.get('/admin/usuario/:usuario', authMiddleware, getAdminByUsername)
+
+router.post('/create/maestro', createMaestro)
+router.get('/maestro/:id', authMiddleware, getMaestroById)
 
 export default router

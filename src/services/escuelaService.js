@@ -58,6 +58,31 @@ class EscuelaService {
   async getAdminByUsername(usuario) {
     return await escuelaRepository.getAdminByUsername(usuario)
   }
+
+  async createMaestro (data) {
+    const newMaestro = new EscuelaModel.MaestroModel(
+      null,
+      data.nombre,
+      data.genero,
+      data.clase,
+      data.asignatura,
+      data.direccion,
+      data.fechanacimiento,
+      data.telefono,
+      data.religion,
+      data.correo,
+      data.gruposangre
+    )
+
+    const maestroId = await escuelaRepository.createMaestro(newMaestro)
+
+    return maestroId
+  }
+
+  async getMaestroById(id) {
+    return await escuelaRepository.getMaestroById(id)
+  }
+
 }
 
 export default EscuelaService
