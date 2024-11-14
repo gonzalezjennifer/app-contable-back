@@ -34,7 +34,24 @@ class EstudianteModel {
   }
 }
 
+class MaestroModel {
+  constructor(id, nombre, genero, clase, asignatura, direccion, fechanacimiento, telefono, religion, correo, gruposangre) {
+    this.id = id,
+    this.nombre = nombre,
+    this.genero = genero,
+    this.clase = clase,
+    this.asignatura = asignatura,
+    this.direccion = direccion,
+    this.fechanacimiento = fechanacimiento,
+    this.telefono = telefono,
+    this.religion = religion,
+    this.correo = correo,
+    this.gruposangre = gruposangre
+  }
+}
+
 export default {
   AdminModel,
-  EstudianteModel
+  EstudianteModel,
+  MaestroModel
 }
