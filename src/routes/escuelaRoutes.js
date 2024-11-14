@@ -4,9 +4,12 @@ import { check } from 'express-validator'
 import {
   createAdmin,
   updateAdmin,
-  deleteAdmin,
   getAdminById,
   getAdminByUsername,
+  createAlumno,
+  updateAlumno,
+  getAllAlumnos,
+  getAlumnoById,
   createMaestro,
   getMaestroById,
   createGasto,
@@ -27,9 +30,14 @@ router.post(
   createAdmin
 )
 router.put('/update/admin/:id', authMiddleware, updateAdmin)
-router.delete('/delete/admin/:id', authMiddleware, deleteAdmin)
 router.get('/admin/:id', authMiddleware, getAdminById)
 router.get('/admin/usuario/:usuario', authMiddleware, getAdminByUsername)
+
+router.post('/create/alumno', createAlumno)
+router.put('/update/alumno/:id', authMiddleware, updateAlumno)
+router.get('/getall/alumnos', authMiddleware, getAllAlumnos)
+router.get('/alumno/:id', authMiddleware, getAlumnoById)
+
 
 router.post('/create/maestro', createMaestro)
 router.get('/maestro/:id', authMiddleware, getMaestroById)

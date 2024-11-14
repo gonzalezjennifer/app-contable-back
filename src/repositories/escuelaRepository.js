@@ -21,10 +21,6 @@ class EscuelaRepository {
     await db.collection('adminsescuela').doc(id).update(data)
   }
 
-  async deleteAdmin(id) {
-    await db.collection('adminsescuela').doc(id).delete()
-  }
-
   async getAdminById(id) {
     const doc = await db.collection('adminsescuela').doc(id).get()
 
@@ -65,6 +61,91 @@ class EscuelaRepository {
       data.usuario,
       data.password,
       data.idioma
+    )
+  }
+
+  async createAlumno(data) {
+    const alumno = await db.collection('alumnos').add({
+      nombre: data.nombre,
+      genero: data.genero,
+      clase: data.clase,
+      nacimiento: data.nacimiento,
+      gruposangre: data.gruposangre,
+      religion: data.religion,
+      fechaadmicion: data.fechaadmicion,
+      nombretutor: data.nombretutor,
+      generotutor: data.generotutor,
+      correotutor: data.correotutor,
+      telefonotutor: data.telefonotutor,
+      ocupaciontutor: data.ocupaciontutor,
+      direcciontutor: data.direcciontutor,
+      religiontutor: data.religiontutor,
+      cantidadpago: data.cantidadpago,
+      statuspago: data.statuspago
+    })
+
+    return alumno.id
+  }
+
+  async updateAlumno(id, data) {
+    await db.collection('alumnos').doc(id).update(data)
+  }
+
+  async getAllAlumnos() {
+    const docs = await db.collection('alumnos').get()
+    const alumnos = []
+    docs.forEach((doc) => {
+      const data = doc.data()
+      alumnos.push(new escuelaModel.AlumnoModel(
+        doc.id,
+        data.nombre,
+        data.genero,
+        data.clase,
+        data.nacimiento,
+        data.gruposangre,
+        data.religion,
+        data.fechaadmicion,
+        data.nombretutor,
+        data.generotutor,
+        data.correotutor,
+        data.telefonotutor,
+        data.ocupaciontutor,
+        data.direcciontutor,
+        data.religiontutor,
+        data.cantidadpago,
+        data.statuspago
+        
+      ))
+    })
+    return alumnos
+  }
+
+  async getAlumnoById(id) {
+    const doc = await db.collection('alumnos').doc(id).get()
+
+    if(!doc.exists) {
+      return null
+    }
+
+    const data = doc.data()
+    return new escuelaModel.AlumnoModel(
+      doc.id,
+      data.nombre,
+      data.genero,
+      data.clase,
+      data.nacimiento,
+      data.gruposangre,
+      data.religion,
+      data.fechaadmicion,
+      data.nombretutor,
+      data.generotutor,
+      data.correotutor,
+      data.telefonotutor,
+      data.ocupaciontutor,
+      data.direcciontutor,
+      data.religiontutor,
+      data.cantidadpago,
+      data.statuspago
     )
   }
 

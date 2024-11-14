@@ -32,21 +32,6 @@ const updateAdmin = async (req, res) => {
   }
 }
 
-const deleteAdmin = async (req, res) => {
-  try {
-    const id = req.params.id
-    await escuelaService.deleteAdmin(id)
-    res.status(201).json({
-      success: true
-    })
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error.message
-    })
-  }
-}
-
 const getAdminById = async (req, res) => {
   try {
     const id = req.params.id
@@ -82,6 +67,73 @@ const getAdminByUsername = async (req, res) => {
     res.status(201).json({
       success: true,
       admin
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
+const createAlumno = async (req, res) => {
+  try {
+    const alumnoId = await escuelaService.createAlumno(req.body)
+    res.status(201).json({
+      success: true,
+      alumnoId
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
+const updateAlumno = async (req, res) => {
+  try {
+    const id = req.params.id
+    await escuelaService.updateAlumno(id, req.body)
+    res.status(201).json({
+      success: true
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
+const getAllAlumnos = async (req, res) => {
+  try {
+    const alumnos = await escuelaService.getAllAlumnos()
+    res.status(201).json({
+      success: true,
+      alumnos
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
+const getAlumnoById = async (req, res) => {
+  try {
+    const id = req.params.id
+    const alumno = await escuelaService.getAlumnoById(id)
+    if (!alumno) {
+      res.status(404).json({
+        success: false,
+        message: 'Alumno not found'
+      })
+    }
+    res.status(201).json({
+      success: true,
+      alumno
     })
   } catch (error) {
     res.status(400).json({
@@ -205,9 +257,12 @@ const getAsignaturaById = async (req, res) => {
 export {
   createAdmin,
   updateAdmin,
-  deleteAdmin,
   getAdminById,
   getAdminByUsername,
+  createAlumno,
+  updateAlumno,
+  getAllAlumnos,
+  getAlumnoById,
   createMaestro,
   getMaestroById,
   createGasto,
