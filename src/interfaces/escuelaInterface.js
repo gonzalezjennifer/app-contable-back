@@ -4,6 +4,10 @@ class EscuelaInterface {
   deleteAdmin(id) {}
   getAdminById(id) {}
   getAdminByUsername(usuario) {}
+  createAlumno(data) {}
+  updateAlumno(id, data) {}
+  getAllAlumnos() {}
+  getAlumnoById(id) {}
   createMaestro(data) {}
   getMaestroById(id) {}
   getAllMaestros() {}
