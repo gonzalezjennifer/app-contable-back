@@ -8,7 +8,9 @@ import {
   getAdminById,
   getAdminByUsername,
   createMaestro,
-  getMaestroById
+  getMaestroById,
+  createGasto,
+  getGastoById
 } from '../controllers/escuelaController.js'
 
 const router = express.Router()
@@ -29,5 +31,15 @@ router.get('/admin/usuario/:usuario', authMiddleware, getAdminByUsername)
 
 router.post('/create/maestro', createMaestro)
 router.get('/maestro/:id', authMiddleware, getMaestroById)
+
+router.post(
+  '/create/gasto',
+  authMiddleware,
+  [
+    check('tipo').notEmpty().withMessage('El tipo de gasto es obligatorio')
+  ],
+  createGasto
+)
+router.get('/gasto/:id', authMiddleware, getGastoById)
 
 export default router

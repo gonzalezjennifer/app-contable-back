@@ -108,6 +108,41 @@ class EscuelaRepository {
     )
   }
 
+  async createGasto(data) {
+    const gasto = await db.collection('gastos').add({
+      nombre: data.nombre,
+      tipo: data.tipo,
+      cantidad: data.cantidad,
+      estado: data.estado,
+      correo: data.correo,
+      numero: data.numero,
+      fechalimite: data.fechalimite
+    })
+
+    return gasto.id
+  }
+
+  async getGastoById(id) {
+    const doc = await db.collection('gastos').doc(id).get()
+
+    if(!doc.exists) {
+      return null
+    }
+
+    const data = doc.data()
+    return new escuelaModel.GastosModel(
+      doc.id,
+      data.nombre,
+      data.tipo,
+      data.cantidad,
+      data.estado,
+      data.correo,
+      data.numero,
+      data.fechalimite
+    )
+  }
+
+
 }
 
 export default EscuelaRepository
