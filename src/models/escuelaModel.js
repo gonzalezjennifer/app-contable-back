@@ -63,9 +63,20 @@ class GastosModel {
   }
 }
 
+class AsignaturasModel {
+  constructor(id, nombre, maestro, clases, dias){
+    this.id = id,
+    this.nombre = nombre,
+    this.maestro = maestro,
+    this.clases = clases,
+    this.dias = dias
+  }
+}
+
 export default {
   AdminModel,
   EstudianteModel,
   MaestroModel,
-  GastosModel
+  GastosModel,
+  AsignaturasModel
 }

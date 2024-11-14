@@ -165,6 +165,43 @@ const getGastoById = async (req, res) => {
   }
 }
 
+const createAsignatura = async (req, res) => {
+  try {
+    const asignaturaId = await escuelaService.createAsignatura(req.body)
+    res.status(201).json({
+      success: true,
+      asignaturaId
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
+const getAsignaturaById = async (req, res) => {
+  try {
+    const id = req.params.id
+    const asignatura = await escuelaService.getAsignaturaById(id)
+    if (!asignatura) {
+      res.status(404).json({
+        success: false,
+        message: 'Asignatura no encontrada'
+      })
+    }
+    res.status(201).json({
+      success: true,
+      asignatura
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
 export {
   createAdmin,
   updateAdmin,
@@ -174,5 +211,7 @@ export {
   createMaestro,
   getMaestroById,
   createGasto,
-  getGastoById
+  getGastoById,
+  createAsignatura,
+  getAsignaturaById
 }

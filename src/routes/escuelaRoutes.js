@@ -10,7 +10,9 @@ import {
   createMaestro,
   getMaestroById,
   createGasto,
-  getGastoById
+  getGastoById,
+  createAsignatura,
+  getAsignaturaById
 } from '../controllers/escuelaController.js'
 
 const router = express.Router()
@@ -41,5 +43,15 @@ router.post(
   createGasto
 )
 router.get('/gasto/:id', authMiddleware, getGastoById)
+
+router.post(
+  '/create/asignatura',
+  authMiddleware,
+  [
+    check('nombre').notEmpty().withMessage('El nombre de la asignatura es obligatorio'),
+    check('maestro').notEmpty().withMessage('El nombre del maestro es obligatorio')
+  ],
+  createGasto
+)
 
 export default router
