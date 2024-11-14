@@ -142,6 +142,33 @@ class EscuelaRepository {
     )
   }
 
+  async createAsignatura(data) {
+    const asignatura = await db.collection('asignaturas').add({
+      nombre: data.nombre,
+      maestro: data.maestro,
+      clases: data.clases,
+      dias: data.dias
+    })
+
+    return asignatura.id
+  }
+
+  async getAsignaturaById(id) {
+    const doc = await db.collection('asignaturas').doc(id).get()
+
+    if(!doc.exists) {
+      return null
+    }
+
+    const data = doc.data()
+    return new escuelaModel.AsignaturasModel(
+      doc.id,
+      data.nombre,
+      data.maestro,
+      data.clases,
+      data.dias
+    )
+  }
 
 }
 

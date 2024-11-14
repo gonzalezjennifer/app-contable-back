@@ -104,6 +104,24 @@ class EscuelaService {
     return await escuelaRepository.getGastoById(id)
   }
 
+  async createAsignatura (data) {
+    const newAsignatura = new EscuelaModel.AsignaturasModel(
+      null,
+      data.nombre,
+      data.maestro,
+      data.clases,
+      data.dias
+    )
+
+    const asignaturaId = await escuelaRepository.createAsignatura(newAsignatura)
+
+    return asignaturaId
+  }
+
+  async getAsignaturaById(id) {
+    return await escuelaRepository.getAsignaturaById(id)
+  }
+
 }
 
 export default EscuelaService

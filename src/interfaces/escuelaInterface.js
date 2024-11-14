@@ -8,6 +8,8 @@ class EscuelaInterface {
   getMaestroById(id) {}
   createGasto(data) {}
   getGastoById(id) {}
+  createAsignatura(data) {}
+  getAsignaturaById(id) {}
 }
 
 export default EscuelaInterface
