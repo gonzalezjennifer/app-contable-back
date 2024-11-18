@@ -56,7 +56,8 @@ const getAdminById = async (req, res) => {
 
 const getAdminByUsername = async (req, res) => {
   try {
-    const username = req.params.username
+    const username = req.params.usuario
+    console.log('usuario', username)
     const admin = await escuelaService.getAdminByUsername(username)
     if (!admin) {
       res.status(404).json({
