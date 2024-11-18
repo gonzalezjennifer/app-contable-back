@@ -36,7 +36,7 @@ router.put('/update/admin/:id', authMiddleware, updateAdmin)
 router.get('/admin/:id', authMiddleware, getAdminById)
 router.get('/admin/usuario/:usuario', authMiddleware, getAdminByUsername)
 
-router.post('/create/alumno', createAlumno)
+router.post('/create/alumno',authMiddleware, createAlumno)
 router.put('/update/alumno/:id', authMiddleware, updateAlumno)
 router.get('/getall/alumnos', authMiddleware, getAllAlumnos)
 router.get('/alumno/:id', authMiddleware, getAlumnoById)
