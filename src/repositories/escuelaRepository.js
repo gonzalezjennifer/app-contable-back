@@ -152,6 +152,7 @@ class EscuelaRepository {
   async createMaestro(data) {
     const maestro = await db.collection('maestros').add({
       nombre: data.nombre,
+      apellido: data.apellido,
       genero: data.genero,
       clase: data.clase,
       asignatura: data.asignatura,
@@ -177,6 +178,7 @@ class EscuelaRepository {
     return new escuelaModel.MaestroModel(
       doc.id,
       data.nombre,
+      data.apellido,
       data.genero,
       data.clase,
       data.asignatura,
@@ -197,6 +199,7 @@ class EscuelaRepository {
       maestros.push(new escuelaModel.MaestroModel(
         doc.id,
         data.nombre,
+        data.apellido,
         data.genero,
         data.clase,
         data.asignatura,
