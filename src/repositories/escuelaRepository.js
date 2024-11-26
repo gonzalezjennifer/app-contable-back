@@ -267,6 +267,10 @@ class EscuelaRepository {
     return gastos
   }
 
+  async updateGasto(id, data) {
+    await db.collection('gastos').doc(id).update(data)
+  }
+
   async createAsignatura(data) {
     const asignatura = await db.collection('asignaturas').add({
       nombre: data.nombre,

@@ -16,6 +16,7 @@ import {
   createGasto,
   getGastoById,
   getAllGastos,
+  updateGasto,
   createAsignatura,
   getAsignaturaById,
   getAllAsignaturas
@@ -56,6 +57,7 @@ router.post(
 )
 router.get('/gasto/:id', authMiddleware, getGastoById)
 router.get('/getall/gastos', authMiddleware, getAllGastos)
+router.put('/update/gasto/:id', authMiddleware, updateGasto)
 
 router.post(
   '/create/asignatura',
