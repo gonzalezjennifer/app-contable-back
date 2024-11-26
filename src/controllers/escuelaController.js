@@ -248,6 +248,21 @@ const getAllGastos = async (req, res) => {
   }
 }
 
+const updateGasto = async (req, res) => {
+  try {
+    const id = req.params.id
+    await escuelaService.updateGasto(id, req.body)
+    res.status(201).json({
+      success: true
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    })
+  }
+}
+
 const createAsignatura = async (req, res) => {
   try {
     const asignaturaId = await escuelaService.createAsignatura(req.body)
@@ -315,6 +330,7 @@ export {
   createGasto,
   getGastoById,
   getAllGastos,
+  updateGasto,
   createAsignatura,
   getAsignaturaById,
   getAllAsignaturas

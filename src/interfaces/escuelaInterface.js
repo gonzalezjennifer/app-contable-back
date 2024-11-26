@@ -14,6 +14,7 @@ class EscuelaInterface {
   createGasto(data) {}
   getGastoById(id) {}
   getAllGastos() {}
+  updateGasto(id, data) {}
   createAsignatura(data) {}
   getAsignaturaById(id) {}
   getAllAsignaturas() {}

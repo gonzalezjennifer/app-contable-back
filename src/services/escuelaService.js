@@ -148,6 +148,15 @@ class EscuelaService {
     return await escuelaRepository.getAllGastos()
   }
 
+  async updateGasto(id, data){
+    const existGasto = await escuelaRepository.getGastoById(id)
+    if (!existGasto) {
+      throw new Error('Gasto no encontrado')
+    }
+
+    await escuelaRepository.updateGasto(id, data)
+  }
+
   async createAsignatura (data) {
     const newAsignatura = new EscuelaModel.AsignaturasModel(
       null,
