@@ -42,7 +42,7 @@ router.get('/getall/alumnos',authMiddleware, getAllAlumnos)
 router.get('/alumno/:id', authMiddleware, getAlumnoById)
 
 
-router.post('/create/maestro', createMaestro)
+router.post('/create/maestro', authMiddleware, createMaestro)
 router.get('/maestro/:id', authMiddleware, getMaestroById)
 router.get('/getall/maestros', authMiddleware, getAllMaestros)
 

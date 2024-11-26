@@ -98,6 +98,7 @@ class EscuelaService {
     const newMaestro = new EscuelaModel.MaestroModel(
       null,
       data.nombre,
+      data.apellido,
       data.genero,
       data.clase,
       data.asignatura,

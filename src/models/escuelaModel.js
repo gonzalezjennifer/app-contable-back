@@ -35,9 +35,10 @@ class AlumnoModel {
 }
 
 class MaestroModel {
-  constructor(id, nombre, genero, clase, asignatura, direccion, fechanacimiento, telefono, religion, correo, gruposangre) {
+  constructor(id, nombre, apellido, genero, clase, asignatura, direccion, fechanacimiento, telefono, religion, correo, gruposangre) {
     this.id = id,
     this.nombre = nombre,
+    this.apellido = apellido,
     this.genero = genero,
     this.clase = clase,
     this.asignatura = asignatura,
