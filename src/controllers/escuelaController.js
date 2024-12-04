@@ -144,6 +144,38 @@ const getAlumnoById = async (req, res) => {
   }
 }
 
+const getAlumnoByNameClass = async (req, res) => {
+  try {
+    const nombre = req.params.nombre
+    const clase = req.params.clase
+    const alumno = await escuelaService.getAlumnoByNameClass(nombre)
+
+    if (!alumno) {
+      return res.status(404).json({
+        error: true,
+        message: 'Student not found'
+      })
+    }
+
+    if (clase === alumno.clase) {
+      res.status(201).json({
+        success: true,
+        alumno
+      })
+    } else {
+      return res.status(401).json({
+        error: true,
+        message: 'Student was not found in this class'
+      })
+    }
+  } catch (error) {
+    res.status(401).json({
+      error: true,
+      message: 'Error: ' + error.message
+    })
+  }
+}
+
 const createMaestro = async (req, res) => {
   try {
     const maestroId = await escuelaService.createMaestro(req.body)
@@ -324,6 +356,7 @@ export {
   updateAlumno,
   getAllAlumnos,
   getAlumnoById,
+  getAlumnoByNameClass,
   createMaestro,
   getMaestroById,
   getAllMaestros,

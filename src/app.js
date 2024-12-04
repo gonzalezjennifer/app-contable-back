@@ -15,7 +15,7 @@ const corsOptions = {
 const app = express()
 
 app.use(express.json())
-app.use(rateLimitMiddleware)
+// app.use(rateLimitMiddleware)
 app.use(cors(corsOptions))
 app.use('/api/v1', routes)
 app.use(errorHandler)
