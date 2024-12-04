@@ -10,6 +10,7 @@ import {
   updateAlumno,
   getAllAlumnos,
   getAlumnoById,
+  getAlumnoByNameClass,
   createMaestro,
   getMaestroById,
   getAllMaestros,
@@ -39,8 +40,9 @@ router.get('/admin/usuario/:usuario', authMiddleware, getAdminByUsername)
 
 router.post('/create/alumno',authMiddleware, createAlumno)
 router.put('/update/alumno/:id', authMiddleware, updateAlumno)
-router.get('/getall/alumnos', authMiddleware, getAllAlumnos)
+router.get('/getall/alumnos',authMiddleware, getAllAlumnos)
 router.get('/alumno/:id', authMiddleware, getAlumnoById)
+router.get('/alumno/nombre/:nombre/clase/:clase', getAlumnoByNameClass)
 
 
 router.post('/create/maestro', authMiddleware, createMaestro)

@@ -149,6 +149,36 @@ class EscuelaRepository {
     )
   }
 
+  async getAlumnoByNameClass(nombre) {
+    const alumno = await db.collection('alumnos').where('nombre', '==', nombre).get()
+
+    if(alumno.empty) {
+      return null
+    }
+
+    const doc = alumno.docs[0]
+    const data = doc.data()
+    return new escuelaModel.AlumnoModel(
+      doc.id,
+      data.nombre,
+      data.genero,
+      data.clase,
+      data.nacimiento,
+      data.gruposangre,
+      data.religion,
+      data.fechaadmicion,
+      data.nombretutor,
+      data.generotutor,
+      data.correotutor,
+      data.telefonotutor,
+      data.ocupaciontutor,
+      data.direcciontutor,
+      data.religiontutor,
+      data.cantidadpago,
+      data.statuspago
+    )
+  }
+
   async createMaestro(data) {
     const maestro = await db.collection('maestros').add({
       nombre: data.nombre,

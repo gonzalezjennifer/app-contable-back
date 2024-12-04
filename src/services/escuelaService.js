@@ -94,6 +94,10 @@ class EscuelaService {
     return await escuelaRepository.getAlumnoById(id)
   }
 
+  async getAlumnoByNameClass(nombre) {
+    return await escuelaRepository.getAlumnoByNameClass(nombre)
+  }
+
   async createMaestro (data) {
     const newMaestro = new EscuelaModel.MaestroModel(
       null,
