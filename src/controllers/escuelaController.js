@@ -1,4 +1,6 @@
 import EscuelaService from '../services/escuelaService.js'
+import { subMonths, isAfter } from 'date-fns';
+
 
 const escuelaService = new EscuelaService()
 
@@ -57,7 +59,6 @@ const getAdminById = async (req, res) => {
 const getAdminByUsername = async (req, res) => {
   try {
     const username = req.params.usuario
-    console.log('usuario', username)
     const admin = await escuelaService.getAdminByUsername(username)
     if (!admin) {
       res.status(404).json({
@@ -346,6 +347,156 @@ const getAllAsignaturas = async (req, res) => {
     })
   }
 }
+
+
+export const getGraficas = async (req, res) => {
+  try {
+    const gastos = await escuelaService.getAllGastos();
+
+    const nombresMeses = [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+
+    const colores = ['#2139DE', '#F22829', '#DDDEEE'];
+
+    const fechaLimite = subMonths(new Date(), 3);
+
+    const estadoMap = {
+      'paid': 'Pagado',
+      'unpaid': 'Pendiente',
+      'due': 'Vencido'
+    };
+
+    const obtenerMesAnio = (fechalimite) => {
+      const [dia, mes, anio] = fechalimite.split('/');
+      if (!dia || !mes || !anio) {
+        throw new Error(`Formato de fecha inválido: ${fechalimite}`);
+      }
+      return { mes: Number(mes), anio: Number(anio), fechaCompleta: new Date(`${anio}-${mes}-${dia}`) };
+    };
+
+    const gastosFiltrados = gastos.filter(gasto => {
+      const { fechaCompleta } = obtenerMesAnio(gasto.fechalimite);
+      return isAfter(fechaCompleta, fechaLimite);
+    });
+
+    const agrupados = gastosFiltrados.reduce((acc, gasto) => {
+      const { mes, anio } = obtenerMesAnio(gasto.fechalimite);
+      const clave = `${anio}-${mes.toString().padStart(2, '0')}`; // Ejemplo: "2024-12"
+
+      if (!acc[clave]) {
+        acc[clave] = {
+          mes,
+          anio,
+          date: `${nombresMeses[mes - 1]} ${anio}`,
+          totalGastado: 0
+        };
+      }
+
+      const cantidad = parseFloat(gasto.cantidad) || 0;
+      acc[clave].totalGastado += cantidad;
+      return acc;
+    }, {});
+
+    let agrupadosArray = Object.values(agrupados);
+
+    agrupadosArray.sort((a, b) => {
+      if (a.anio !== b.anio) {
+        return a.anio - b.anio;
+      }
+      return a.mes - b.mes;
+    });
+
+    const datasetsGastado = agrupadosArray.map((item, index) => ({
+      label: `${item.date} - $${item.totalGastado.toFixed(2)}`, // Incluye el total gastado
+      backgroundColor: colores[index % colores.length], // Usar colores específicos en ciclo
+      data: [item.totalGastado]
+    }));
+
+    const chartDataGastado = {
+      datasets: datasetsGastado
+    };
+
+    const agrupadosPagos = gastosFiltrados.reduce((acc, gasto) => {
+      const { mes, anio } = obtenerMesAnio(gasto.fechalimite);
+      const clave = `${anio}-${mes.toString().padStart(2, '0')}`;
+
+      if (!acc[clave]) {
+        acc[clave] = {
+          mes,
+          anio,
+          Paid: 0,
+          Unpaid: 0,
+          Due: 0
+        };
+      }
+
+      switch (gasto.estado.toLowerCase()) {
+        case 'paid':
+          acc[clave].Paid += 1;
+          break;
+        case 'unpaid':
+          acc[clave].Unpaid += 1;
+          break;
+        case 'due':
+          acc[clave].Due += 1;
+          break;
+        default:
+          break;
+      }
+
+      return acc;
+    }, {});
+
+    let agrupadosPagosArray = Object.values(agrupadosPagos);
+
+    agrupadosPagosArray.sort((a, b) => {
+      if (a.anio !== b.anio) {
+        return a.anio - b.anio;
+      }
+      return a.mes - b.mes;
+    });
+
+    const estados = ['Paid', 'Unpaid', 'Due'];
+    const coloresEstados = ['#2139DE', '#F22829', '#DDDEEE'];
+
+    const datasetsPagos = estados.map((estado, index) => ({
+      label: estadoMap[estado.toLowerCase()] || estado,
+      borderColor: coloresEstados[index],
+      fill: false,
+      data: agrupadosPagosArray.map(item => item[estado] || 0)
+    }));
+
+    const chartDataPagos = {
+      labels: agrupadosPagosArray.map(item => `${nombresMeses[item.mes - 1]} ${item.anio}`),
+      datasets: datasetsPagos
+    };
+
+    res.status(200).json({
+      gastosPorMes: agrupadosArray.map(item => ({
+        date: item.date,
+        totalGastado: item.totalGastado
+      })),
+      chartDataGastado,
+      pagosPorMes: agrupadosPagosArray.map(item => ({
+        date: `${nombresMeses[item.mes - 1]} ${item.anio}`,
+        Pagado: item.Paid,
+        Pendiente: item.Unpaid,
+        Vencido: item.Due
+      })),
+      chartDataPagos
+    });
+  } catch (e) {
+    console.error('Error en getGraficas:', e);
+    res.status(400).json({
+      success: false,
+      message: e.message
+    });
+  }
+};
+
+
 
 export {
   createAdmin,
