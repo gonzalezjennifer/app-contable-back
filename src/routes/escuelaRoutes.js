@@ -20,7 +20,7 @@ import {
   updateGasto,
   createAsignatura,
   getAsignaturaById,
-  getAllAsignaturas
+  getAllAsignaturas, getGraficas
 } from '../controllers/escuelaController.js'
 
 const router = express.Router()
@@ -72,5 +72,7 @@ router.post(
 )
 router.get('/asignatura/:id', authMiddleware, getAsignaturaById)
 router.get('/getall/asignaturas', authMiddleware, getAllAsignaturas)
+
+router.get("/graficas",getGraficas)
 
 export default router
